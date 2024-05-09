@@ -6,6 +6,10 @@
 #define CSC340FINALGROUPPROJECT_WORLD_H
 
 #include "Organism.h"
+#include <random>
+
+const int WORLDSIZE =30;
+
 class World
 {
     friend class Organism;                // Allow Organism to access grid
@@ -19,8 +23,8 @@ public:
     void Display();                 //display the grid
     void SimulateOneStep();         //simulate one step
 private:
-    Organism* grid[30][30];  //WORLDSIZE=30
+    //int const static WORLDSIZE = 30;
+    Organism* grid[WORLDSIZE][WORLDSIZE];  //WORLDSIZE=30
 };
-
 
 #endif //CSC340FINALGROUPPROJECT_WORLD_H
