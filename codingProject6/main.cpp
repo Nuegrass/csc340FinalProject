@@ -15,12 +15,15 @@ int main(){
         int xPos =distribution(generator);
         int yPos =distribution(generator);
         Zoomie* ezz= new Zoomie(ez, xPos,yPos);
+        Swoopie* pzz = new Swoopie(ez,xPos+1, yPos+2);
         std::cout << "random xPos is " << xPos << std::endl;
         std::cout << "random yPos is " << yPos << std::endl;
         std::cout << "calling Zoomie toString " << ezz->toString() <<std::endl;
         std::cout << "ezz"<<std::endl;
 
         ez->setAt(xPos, yPos, ezz);
+        ez->setAt(xPos+1, yPos+2, pzz);
+
     }
     ez->Display();
 

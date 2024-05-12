@@ -8,7 +8,7 @@ Zoomie::Zoomie(){
     this->breedTicks = 0;
     this->moved = false;
 }
-Zoomie::Zoomie(World* world, int x, int y){
+Zoomie::Zoomie(World* world, int x, int y){//parameterized constructor
     this->x = x;
     this->y = y;
     this->breedTicks = 0;
