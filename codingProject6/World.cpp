@@ -12,15 +12,20 @@ World::World(){
 }
 World::~World(){
 
+    for (int i = 0; i < WORLDSIZE; ++i) {
+        for (int j = 0; j < WORLDSIZE; ++j) {
+            if(grid[i][j] != nullptr){
+                delete grid[i][j];
+            }
+        }
+    }
 }
 Organism* World::getAt(int x, int y){
-        Organism* tmp = nullptr;
-        tmp = this->grid[x][y];
+        Organism* tmp = this->grid[x][y];
         return tmp;
     }  //return a pointer to the critter at position [x][y]
 void World::setAt(int x, int y, Organism *org){
    grid[x][y] = org;
-    //  Organism* grid[WORLDSIZE][WORLDSIZE]
 }
 void World::Display(){
     std::cout <<"Entering Display() function"<< std::endl;
@@ -43,3 +48,12 @@ void World::Display(){
 void World::SimulateOneStep(){
     std::cout << "simulating one step" << std::endl;
 }
+//helper functions
+
+bool World::isValid(int x, int y){
+    if(x >= 0 && x < WORLDSIZE && y >= 0 && y < WORLDSIZE){
+        return true;
+    }else{
+        return false;
+    }
+} // check (x,y) is in 30x30 grid

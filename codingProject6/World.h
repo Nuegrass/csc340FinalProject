@@ -23,7 +23,9 @@ public:
     void setAt(int x, int y, Organism *org);
     void Display();                 //display the grid
     void SimulateOneStep();         //simulate one step
-private:
+    //helper functions
+    bool isValid(int newX, int newY); // check (newX, newY) is in 30x30 grid;
+        private:
     Organism* grid[WORLDSIZE][WORLDSIZE];  //WORLDSIZE=30
 };
 
