@@ -6,6 +6,8 @@
 #define CSC340FINALGROUPPROJECT_ZOOMIE_H
 
 #include "Organism.h"
+#include "World.h"
+//we  #include World.h because we want to use the member functions of world in our cpp definitions
 class Zoomie : public Organism{
 
 public:
