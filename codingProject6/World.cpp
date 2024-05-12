@@ -41,5 +41,5 @@ void World::Display(){
     }
 }                 //display the grid
 void World::SimulateOneStep(){
-
+    std::cout << "simulating one step" << std::endl;
 }
