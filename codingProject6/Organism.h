@@ -4,16 +4,19 @@
 
 #ifndef CSC340FINALGROUPPROJECT_ORGANISM_H
 #define CSC340FINALGROUPPROJECT_ORGANISM_H
-#include "World.h"
+
 #include <iostream>
+#include "World.h"
 
 class Organism
 {
-    friend class World;                     // Allow world to affect organism
+    friend class World;
+    // Allow world to affect organism
 public:
+
     Organism();
     Organism(World *world, int x, int y);
-    ~Organism();
+    ~Organism();   //Ask yourself: should this function be declared virtual?
     virtual void breed() = 0;       // Whether or not to breed
     virtual void move() = 0;        // Rules to move the critter
     virtual int getType() =0;       // Return if Swoopie or Zoomie

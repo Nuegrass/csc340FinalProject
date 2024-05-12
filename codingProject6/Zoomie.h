@@ -20,6 +20,7 @@ public:
     virtual void move() ;        // Rules to move the critter
     virtual int getType() ;       // Return if Swoopie or Zoomie
     virtual bool starve() ;      // Determine if organism starves
+
 protected:
 
 

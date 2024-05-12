@@ -2,8 +2,9 @@
 // Created by amytx on 5/9/2024.
 //
 #include "Organism.h"
-Organism::Organism(){
 
+Organism::Organism(){ //default constructor
+    this->breedTicks = 0;
 }
 Organism::Organism(World *world, int x, int y){
     this->x = x;
@@ -19,19 +20,17 @@ Organism::~Organism(){
             delete [] world;
             world = nullptr;
         }
-
 }
-void Organism::breed() {
-    if(breedTicks ==3){
+//c
 
-    }
+void Organism::breed() {
 }      // Whether or not to breed
 void Organism::move(){
-    breedTicks++;
+
 }        // Rules to move the critter
 int Organism::getType() {
-    return 4;
+
 }      // Return if Swoopie or Zoomie
 bool Organism::starve(){
-    return false;
+
 }   //

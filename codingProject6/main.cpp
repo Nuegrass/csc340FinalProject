@@ -17,6 +17,6 @@ int main(){
         yPos =distribution(generator);
         Organism* ezz= new Zoomie(ez, xPos,yPos);
 
-        ez->setAt();
+
     }
 }
