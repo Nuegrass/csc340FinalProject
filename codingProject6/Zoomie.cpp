@@ -1,4 +1,5 @@
 #include "Zoomie.h"
+
 //
 // Created by amytx on 5/9/2024.
 //
@@ -8,9 +9,11 @@ Zoomie::Zoomie(){
     this->moved = false;
 }
 Zoomie::Zoomie(World* world, int x, int y){
-
+    this->x = x;
+    this->y = y;
+    this->world = world;
 }
-void Zoomie::breed(){
+void Zoomie::breed() {
     std::cout << "ez";
 
 };       // Whether or not to breed
@@ -23,5 +26,25 @@ int Zoomie::getType(){
 bool Zoomie::starve(){
     return true;
 
-}      // Determine if organism starves
+}
+
+Zoomie::~Zoomie() {//destructor
+
+}
+
+Zoomie::Zoomie(const Zoomie &zoom) {
+
+}
+std::string Zoomie::toString(){
+    std::string tmp;
+    int tmpX = this->x;
+    int tmpY = this->y;
+    tmp = "xPos : " + std::to_string(tmpX) + " yPos : " +std::to_string(tmpY) ;
+    return tmp;
+}
+
+/*Zoomie &Zoomie::operator=(const Zoomie &zoomer) {
+    return <#initializer#>;
+}*/
+// Determine if organism starves
 

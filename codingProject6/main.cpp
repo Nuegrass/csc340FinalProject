@@ -9,14 +9,19 @@ int main(){
     World* ez =  new World();
 
     std::default_random_engine generator;
-    std::uniform_int_distribution<> distribution(0,30);//generate a random number from 0-30
-    int xPos =distribution(generator);
-    int yPos =distribution(generator);
-    for (int i = 0; i < 5; ++i) {
-        xPos =distribution(generator);
-        yPos =distribution(generator);
-        Organism* ezz= new Zoomie(ez, xPos,yPos);
+    std::uniform_int_distribution<> distribution(0.0,30.0);//generate a random number from 0-30
 
-        ez->setAt();
+    for (int i = 0; i < 5; ++i) {
+        int xPos =distribution(generator);
+        int yPos =distribution(generator);
+        Zoomie* ezz= new Zoomie(ez, xPos,yPos);
+        std::cout << "random xPos is " << xPos << std::endl;
+        std::cout << "random yPos is " << yPos << std::endl;
+        std::cout << "calling Zoomie toString " << ezz->toString() <<std::endl;
+        std::cout << "ezz"<<std::endl;
+
+        ez->setAt(xPos, yPos, ezz);
     }
+    ez->Display();
+
 }

@@ -4,9 +4,9 @@
 
 #ifndef CSC340FINALGROUPPROJECT_ORGANISM_H
 #define CSC340FINALGROUPPROJECT_ORGANISM_H
-#include "World.h"
-#include <iostream>
 
+#include <iostream>
+class World;
 class Organism
 {
     friend class World;                     // Allow world to affect organism

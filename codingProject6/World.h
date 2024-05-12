@@ -5,11 +5,12 @@
 #ifndef CSC340FINALGROUPPROJECT_WORLD_H
 #define CSC340FINALGROUPPROJECT_WORLD_H
 
-#include "Organism.h"
+#include "Swoopie.h"
+#include "Zoomie.h"
 #include <random>
 
 const int WORLDSIZE =30;
-
+class Organism;
 class World
 {
     friend class Organism;                // Allow Organism to access grid
@@ -23,7 +24,6 @@ public:
     void Display();                 //display the grid
     void SimulateOneStep();         //simulate one step
 private:
-    //int const static WORLDSIZE = 30;
     Organism* grid[WORLDSIZE][WORLDSIZE];  //WORLDSIZE=30
 };
 
