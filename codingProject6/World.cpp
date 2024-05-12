@@ -21,9 +21,14 @@ World::~World(){
     }
 }
 Organism* World::getAt(int x, int y){
+    if (this->grid[x][y] == nullptr){
+        return nullptr;
+    }else{
         Organism* tmp = this->grid[x][y];
         return tmp;
-    }  //return a pointer to the critter at position [x][y]
+
+    }
+}  //return a pointer to the critter at position [x][y]
 void World::setAt(int x, int y, Organism *org){
    grid[x][y] = org;
 }

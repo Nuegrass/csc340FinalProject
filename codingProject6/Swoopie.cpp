@@ -70,6 +70,9 @@ void Swoopie::breed() {
 }
 //FIXME: check Memory leak here
 void Swoopie::move() {
+    std::cout << "CALLING SWOOPIE MOVE FUNC..... but it crashed the program wtf" << std::endl;
+
+
     if (isZoomie(x, y + 1)) { // if there is a Zoomie below
         world->setAt(x, y + 1, this);
         world->setAt(x, y, nullptr);

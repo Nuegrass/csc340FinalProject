@@ -10,7 +10,7 @@ int main(){
 
     std::default_random_engine generator;
     std::uniform_int_distribution<> distribution(0.0,30.0);//generate a random number from 0-30
-
+    //Adding the Zoomie and Swoopies to the World
     for (int i = 0; i < 5; ++i) {
         int xPos =distribution(generator);
         int yPos =distribution(generator);
@@ -26,5 +26,16 @@ int main(){
 
     }
     ez->Display();
+    for (int i = 0; i < 30; ++i) {
+        for (int j = 0; j < 30; ++j) {
+            if (ez->getAt(i,j) != nullptr){
+                std::cout << "CALLING MOVE ON A ORGANISM at "<< i<<" " << j <<std::endl;
+                ez->getAt(i,j)->move();
+            }
+        }
+    }
+    std::cout << "First MOVE PLS WORK LUL" << std::endl;
+    ez->Display();
+
 
 }

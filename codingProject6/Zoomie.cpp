@@ -43,6 +43,8 @@ void Zoomie::breed() {
     }
 };       // Whether or not to breed
 void Zoomie::move(){
+    std::cout << "CALLING ZOOMIE MOVE" << std::endl;
+
     moved = true; //set moved to true
     breedTicks++; //increment breedTicks
 
