@@ -72,6 +72,35 @@ void Swoopie::breed() {
 void Swoopie::move() {
     std::cout << "CALLING SWOOPIE MOVE FUNC..... but it crashed the program wtf" << std::endl;
 
+    moved = true; //set moved to true
+    breedTicks++; //increment breedTicks
+
+    //rand() generates a random number from 0 to 2147483647;
+    int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
+    int newX = x;
+    int newY = y;
+    switch (direction) {
+        case 0: //move right
+            newX = x + 1;
+            break;
+        case 1: //move left
+            newX = x - 1;
+            break;
+        case 2: //up
+            newY = y + 1;
+            break;
+        case 3: //down
+            newY = y - 1;
+            break;
+    }
+    if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
+        world->setAt(newX, newY, this); //set the new position to the Zoomie
+        world->setAt(x, y, nullptr); //set the old position to empty
+        x = newX; //update the x position
+        y = newY; //update the y position
+    }
+
+/*
 
     if (isZoomie(x, y + 1)) { // if there is a Zoomie below
         world->setAt(x, y + 1, this);
@@ -90,8 +119,9 @@ void Swoopie::move() {
         world->setAt(x, y, nullptr);
         x--;
     } else {
+
         //FIXME: need to use Zoomie's move function, have not finished yet
-    }
+    }*/
 }
 
 //If a Swoopie has not eaten a Zoomie within the last three time steps, then at the end of the third time step it will starve and die. The
@@ -114,4 +144,11 @@ bool Swoopie::isZoomie(int x, int y) {
         return true;
     }
     return false;
+}
+std::string Swoopie::toString() {
+    std::string tmp;
+    int tmpX = this->x;
+    int tmpY = this->y;
+    tmp = "xPos : " + std::to_string(tmpX) + " yPos : " +std::to_string(tmpY) ;
+    return tmp;
 }

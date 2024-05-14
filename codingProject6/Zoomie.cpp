@@ -13,6 +13,7 @@ Zoomie::Zoomie(World* world, int x, int y){//parameterized constructor
     this->y = y;
     this->breedTicks = 0;
     this->world = world;
+    this->world->setAt(x,y,this);
 }
 void Zoomie::breed() {
 

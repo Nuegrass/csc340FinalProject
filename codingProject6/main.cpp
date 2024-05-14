@@ -19,17 +19,18 @@ int main(){
         std::cout << "random xPos is " << xPos << std::endl;
         std::cout << "random yPos is " << yPos << std::endl;
         std::cout << "calling Zoomie toString " << ezz->toString() <<std::endl;
+        std::cout << "calling Zoomie toString " << pzz->toString() <<std::endl;
         std::cout << "ezz"<<std::endl;
-
+/*
         ez->setAt(xPos, yPos, ezz);
-        ez->setAt(xPos+1, yPos+2, pzz);
+        ez->setAt(xPos+1, yPos+2, pzz);*/
 
     }
     ez->Display();
     for (int i = 0; i < 30; ++i) {
         for (int j = 0; j < 30; ++j) {
             if (ez->getAt(i,j) != nullptr){
-                std::cout << "CALLING MOVE ON A ORGANISM at "<< i<<" " << j <<std::endl;
+                //std::cout << "CALLING MOVE ON A ORGANISM at "<< i<<" " << j <<std::endl;
                 ez->getAt(i,j)->move();
             }
         }
