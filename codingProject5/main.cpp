@@ -1,24 +1,28 @@
-/*
+//
+// Created by yuto&scott&Andy on 5/7/2024.
+//
 #include <iostream>
-
-#include <iostream>
-#include <vector>
-#include <queue>
-
-#include "Graph.h"
 #include "unitTest.h"
+#include "graph.h"
+void printTestResult(bool result,std::string testName) {
+    std::cout<<"\n\n testing:"<<testName<<"\n";
+    if (result) {
+        std::cout << testName << " is passed.\n\n";
+
+    } else {
+        std::cout << testName << " is failed\n\n";
+    }
+}
 int main() {
-    Graph graph(5);
-    graph.addEdge(0, 1);
-    graph.addEdge(0, 2);
-    graph.addEdge(1, 3);
-    graph.addEdge(2, 4);
-    graph.addEdge(3, 4);
+    printTestResult(UNITTEST::testVertix(),"testVertix");
+    printTestResult(UNITTEST::testAddEdge(),"testAddEdge");
+   // printTestResult(UNITTEST::testCopyConstructor(),"testCopyConstructor");
+    printTestResult(UNITTEST::testCopyAssignment(),"testCopyAssignment");
+   // printTestResult(UNITTEST::testDestructor(),"testDestructor");
 
-    graph.printBFSTree();
-    graph.BFS(0);
+   // printTestResult(UNITTEST::testBFS(),"testBFS");
+  //  printTestResult(  UNITTEST::testPrintTree(),"testPrintTree");
 
-    //graph.printShortest(); //0-4
-    std::cout << std::endl;
+
     return 0;
-}*/
+}

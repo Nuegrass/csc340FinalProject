@@ -68,25 +68,29 @@ Graph::~Graph() {
 //}
 
 void Graph::addEdge(int from, int dest) {
-    Vertix* newVertix = new Vertix;// new V
-    std::cout<<"added edge from "<<from<<" to "<<dest<<"\n";
-    if(adjList[dest]== nullptr){
-        newVertix->dest = dest;//set destination
-        newVertix->next = adjList[dest];//set next node
-        newVertix->predecessor = adjList[from];//set predecessor node
-        adjList[from]->next = newVertix;//???
-        std::cout<<"if";
-    }else{
-        while(adjList[dest]!= nullptr){//keep reading until null
-            newVertix->predecessor = adjList[from];//set predecessor node
-            adjList[from]=adjList[from]->next;//next node
-            std::cout<<"next";
-            newVertix->next = adjList[dest];//set next node
+    // Create a new vertex for the destination
+    Vertix* newVertex = new Vertix;
+    newVertex->dest = dest; // Set destination
+    newVertex->next = nullptr; // Initialize next pointer
+    newVertex->predecessor = nullptr; // Initialize predecessor pointer
 
-            adjList[from]->next = newVertix;//???
+    // Check if there are any vertices in the adjacency list for the 'from' vertex
+    if (adjList[from] == nullptr) {
+        // If there are no vertices in the list for 'from', directly add the new vertex
+        adjList[from] = newVertex;
+    } else {
+        // If there are vertices in the list for 'from', find the last vertex and append the new one
+        Vertix* current = adjList[from];
+        while (current->next != nullptr) {
+            current = current->next;
         }
+        current->next = newVertex; // Append the new vertex at the end of the list
+        newVertex->predecessor = current; // Set the predecessor of the new vertex
     }
+
+    std::cout << "Added edge from " << from << " to " << dest << std::endl;
 }
+
 
 void Graph::BFS(int source) {
     std::vector<bool> visited(V, false);
