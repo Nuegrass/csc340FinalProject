@@ -1,8 +1,154 @@
 //
-// Created by amytx on 5/9/2024.
+// Created by yuto&scott&Andy on 5/7/2024.
 //
 
-#ifndef CSC340FINALGROUPPROJECT_UNITTEST_H
-#define CSC340FINALGROUPPROJECT_UNITTEST_H
+#ifndef PROJECT5_UNITTEST_H
+#define PROJECT5_UNITTEST_H
+#include "graph.h"
+#include <cassert>
+#endif //PROJECT5_UNITTEST_H
+namespace UNITTEST{
 
-#endif //CSC340FINALGROUPPROJECT_UNITTEST_H
+    bool testVertix(){
+        try {
+            Graph graph(6); // Attempt to create a Graph object with 6 vertices
+            return (graph.getV()==6);
+        } catch (const std::exception& e) {
+            std::cerr << "An exception occurred: " << e.what() << std::endl;
+            return false;
+        }
+    }
+
+    bool testBFS(){
+        try{
+            Graph graph(5);
+            graph.addEdge(0, 1);
+            graph.addEdge(0, 2);
+            graph.addEdge(1, 3);
+            graph.addEdge(2, 4);
+            graph.addEdge(3, 4);
+
+            int root=0;
+            std::cout << "BFS traversal starting from node "<<root<<": ";
+            graph.BFS(root);
+            graph.printBFSTree(root);
+            std::cout << std::endl;
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << "An exception occurred: " << e.what() << std::endl;
+            return false;
+        }
+
+    }
+
+    bool testAddEdge() {
+        try {
+            Graph graph(5);
+            graph.addEdge(0, 1);
+            graph.addEdge(0, 2);
+            graph.addEdge(1, 3);
+            graph.addEdge(2, 4);
+            graph.addEdge(3, 4);
+            std::vector<Vertix*> adjList = graph.getAdjList();
+            std::cout<<"AT 0 :"<<adjList.at(0)->dest;
+            if (adjList.at(0)->dest == 1) {
+                std::cout<<"AT 0 :"<<adjList.at(0)->next->dest;
+                //
+                if(adjList.at(0)->next->dest == 2){
+                    return true;
+                }
+            }
+
+            return false;
+        } catch (const std::exception &e) {
+            std::cerr << "An exception occurred: " << e.what() << std::endl;
+            return false;
+        }
+    }
+
+    bool testPrintTree(){
+        try{
+            Graph graph(5);
+            graph.addEdge(0, 1);
+            graph.addEdge(0, 2);
+            graph.addEdge(1, 3);
+            graph.addEdge(2, 4);
+            graph.addEdge(3, 4);
+            int root=0;
+            std::cout << "BFS traversal starting from node "<<root<<": ";
+            graph.BFS(root);
+            graph.printBFSTree(root);
+            std::cout << std::endl;
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << "An exception occurred: " << e.what() << std::endl;
+            return false;
+        }
+
+    }
+
+//
+//     bool testCopyConstructor() {
+//         // Create graph1 with edges
+//         Graph graph1(5);
+//         graph1.addEdge(0, 1);
+//         graph1.addEdge(0, 2);
+//
+//         // Create graph2 using copy constructor
+//         Graph graph2(graph1); // Copy constructor
+//
+//         // Check if graph2 is a copy of graph1
+//         if (graph2.getV() != graph1.getV())
+//             return false;
+//
+//         const std::vector<Node*>& adjList1 = graph1.getAdjList();
+//         const std::vector<Node*>& adjList2 = graph2.getAdjList();
+//         for (int i = 0; i < graph1.getV(); ++i) {
+//             Node* current1 = adjList1[i];
+//             Node* current2 = adjList2[i];
+//             while (current1 != nullptr) {
+//                 if (current2 == nullptr || current1->dest != current2->dest)
+//                     return false;
+//                 current1 = current1->next;
+//                 current2 = current2->next;
+//             }
+//         }
+//
+//         // All checks passed
+//         return true;
+//     }
+
+
+
+
+    bool testCopyAssignment() {
+        Graph graph(5);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(0, 3);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1);
+
+        Graph& ref = graph;
+        ref = ref; // Self-assignment
+
+        // Check if graph remains unchanged
+        return (graph.getAdjList() == ref.getAdjList() && graph.getV() == ref.getV());
+    }
+
+
+//
+//     bool testDestructor() {
+//         // Create an empty graph
+//         Graph graph(0);
+//
+//         // Delete the graph object
+//         // After deletion, the adjacency list should be empty
+//         delete &graph; // Delete the graph object
+//
+//         return graph.getAdjList().empty();
+//     }
+
+}
+
+
