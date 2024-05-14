@@ -9,6 +9,9 @@ Swoopie::Swoopie(World *world, int x, int y) {
     this->y = y;
     this->breedTicks = 0;
     this->world = world;//points the organism to the world
+
+
+
     this->world->setAt(x,y,this); //setting the position of the organism to x , y
     this->starveTicks = 0;
 }
@@ -64,6 +67,7 @@ void Swoopie::breed() {
         }
         if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
             Swoopie *newSwoopie = new Swoopie(world, newX, newY); //create a new Swoopie
+
         }
         //if the new position is not valid or not empty, then no breeding occurs
     }
@@ -75,33 +79,7 @@ void Swoopie::move() {
     moved = true; //set moved to true
     breedTicks++; //increment breedTicks
 
-    //rand() generates a random number from 0 to 2147483647;
-    int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
-    int newX = x;
-    int newY = y;
-    switch (direction) {
-        case 0: //move right
-            newX = x + 1;
-            break;
-        case 1: //move left
-            newX = x - 1;
-            break;
-        case 2: //up
-            newY = y + 1;
-            break;
-        case 3: //down
-            newY = y - 1;
-            break;
-    }
-    if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
-        world->setAt(newX, newY, this); //set the new position to the Zoomie
-        world->setAt(x, y, nullptr); //set the old position to empty
-        x = newX; //update the x position
-        y = newY; //update the y position
-    }
-
-/*
-
+    //check if there is a Zoomie in the adjacent cells
     if (isZoomie(x, y + 1)) { // if there is a Zoomie below
         world->setAt(x, y + 1, this);
         world->setAt(x, y, nullptr);
@@ -119,9 +97,36 @@ void Swoopie::move() {
         world->setAt(x, y, nullptr);
         x--;
     } else {
-
         //FIXME: need to use Zoomie's move function, have not finished yet
-    }*/
+        //rand() generates a random number from 0 to 2147483647;
+        int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
+        int newX = x;
+        int newY = y;
+        switch (direction) {
+            case 0: //move right
+                newX = x + 1;
+                break;
+            case 1: //move left
+                newX = x - 1;
+                break;
+            case 2: //up
+                newY = y + 1;
+                break;
+            case 3: //down
+                newY = y - 1;
+                break;
+        }
+        if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
+            world->setAt(newX, newY, this); //set the new position to the Zoomie
+            world->setAt(x, y, nullptr); //set the old position to empty
+            x = newX; //update the x position
+            y = newY; //update the y position
+        }
+    }
+
+
+
+
 }
 
 //If a Swoopie has not eaten a Zoomie within the last three time steps, then at the end of the third time step it will starve and die. The
@@ -140,10 +145,14 @@ int Swoopie::getType() {
 
 //helper function
 bool Swoopie::isZoomie(int x, int y) {
-    if (world->getAt(x, y)->getType() == 1) { // 1 is Zoomie, 2 is Swoopie
-        return true;
+    //check if x and y are [0,30]
+    if(world->isValid(x, y) && (world->getAt(x, y) != nullptr)){
+        if(world->getAt(x, y)->getType() == 1){
+            return true;
+        }
     }
     return false;
+
 }
 std::string Swoopie::toString() {
     std::string tmp;

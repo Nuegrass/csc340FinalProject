@@ -30,7 +30,10 @@ Organism* World::getAt(int x, int y){
     }
 }  //return a pointer to the critter at position [x][y]
 void World::setAt(int x, int y, Organism *org){
-   grid[x][y] = org;
+    //if at (x,y) there is an organism, delete it
+
+        grid[x][y] = org;
+
 }
 void World::Display(){
     std::cout <<"Entering Display() function"<< std::endl;
@@ -52,11 +55,27 @@ void World::Display(){
 }                 //display the grid
 void World::SimulateOneStep(){
     std::cout << "simulating one step" << std::endl;
+    //move all swoopies first
+    for (int i = 0; i < WORLDSIZE; ++i) {
+        for (int j = 0; j < WORLDSIZE; ++j) {
+            if (grid[i][j]->getType() == 2){
+                grid[i][j]->move();
+            }
+        }
+    }
+    //move all zoomies
+    for (int i = 0; i < WORLDSIZE; ++i) {
+        for (int j = 0; j < WORLDSIZE; ++j) {
+            if (grid[i][j]->getType() == 1){
+                grid[i][j]->move();
+            }
+        }
+    }
 }
 //helper functions
 
 bool World::isValid(int x, int y){
-    if(x >= 0 && x < WORLDSIZE && y >= 0 && y < WORLDSIZE){
+    if(x >= 0 && x <= WORLDSIZE && y >= 0 && y <= WORLDSIZE){
         return true;
     }else{
         return false;
