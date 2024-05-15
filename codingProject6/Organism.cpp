@@ -35,7 +35,6 @@ void Organism::move(){
     breedTicks++;
 }        // Rules to move the critter
 int Organism::getType() {
-    return 4;
 }      // Return if Swoopie or Zoomie
 bool Organism::starve(){
     return false;

@@ -46,9 +46,7 @@ void World::Display(){
                 std::cout << "o";
             }else if(grid[i][j]->getType() == 2){
                 std::cout << "x";
-            }else
-                std::cout << "_";
-
+            }
         }
         std::cout << std::endl;
     }
@@ -58,15 +56,18 @@ void World::SimulateOneStep(){
     //move all swoopies first
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
-            if (grid[i][j]->getType() == 2){
+
+            if (grid[i][j] != nullptr && grid[i][j]->getType() == 2 && grid[i][j]->moved == false){
                 grid[i][j]->move();
             }
+
         }
     }
+
     //move all zoomies
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
-            if (grid[i][j]->getType() == 1){
+            if (grid[i][j] != nullptr && grid[i][j]->getType() == 1 && grid[i][j]->moved == false){
                 grid[i][j]->move();
             }
         }

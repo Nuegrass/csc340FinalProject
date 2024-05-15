@@ -17,11 +17,10 @@ int main(){
     for (int i = 0; i < 5; ++i) {
         int xPos =distribution(generator);
         int yPos =distribution(generator);
-        Zoomie* ezz= new Zoomie(ez, xPos,yPos);
-        Swoopie* pzz = new Swoopie(ez,xPos+1, yPos+2);
+//        Zoomie* ezz= new Zoomie(ez, xPos,yPos);
+        Swoopie* pzz = new Swoopie(ez,xPos, yPos);
         std::cout << "random xPos is " << xPos << std::endl;
         std::cout << "random yPos is " << yPos << std::endl;
-        std::cout << "calling Zoomie toString " << ezz->toString() <<std::endl;
         std::cout << "calling Zoomie toString " << pzz->toString() <<std::endl;
         std::cout << "ezz"<<std::endl;
 /*
@@ -29,19 +28,26 @@ int main(){
         ez->setAt(xPos+1, yPos+2, pzz);*/
 
     }
-    ez->Display();
 
-    for (int i = 0; i < 30; ++i) {
-        for (int j = 0; j < 30; ++j) {
-            if (ez->getAt(i,j) != nullptr){
-                //std::cout << "CALLING MOVE ON A ORGANISM at "<< i<<" " << j <<std::endl;
-                ez->getAt(i,j)->move();
-                ez->Display();
-            }
-        }
+    for (int i = 0; i < 100; ++i) {
+        int xPos =distribution(generator);
+        int yPos =distribution(generator);
+        Zoomie* ezz= new Zoomie(ez, xPos,yPos);
+//        Swoopie* pzz = new Swoopie(ez,xPos, yPos);
+        std::cout << "random xPos is " << xPos << std::endl;
+        std::cout << "random yPos is " << yPos << std::endl;
+        std::cout << "calling Zoomie toString " << ezz->toString() <<std::endl;
+        std::cout << "ezz"<<std::endl;
+/*
+        ez->setAt(xPos, yPos, ezz);
+        ez->setAt(xPos+1, yPos+2, pzz);*/
+
     }
-    std::cout << "First MOVE PLS WORK LUL" << std::endl;
+
+    ez->Display();
+    // Loop indefinitely
+    ez->SimulateOneStep();
     ez->Display();
 
-
+    return 0;
 }
