@@ -16,7 +16,6 @@ Zoomie::Zoomie(World* world, int x, int y){//parameterized constructor
     this->world->setAt(x,y,this);
 }
 void Zoomie::breed() {
-
     if(breedTicks == 3){ //if breedTicks is 3
         breedTicks = 0; //reset breedTicks
         //find an empty cell to breed from the current cell
@@ -38,7 +37,7 @@ void Zoomie::breed() {
                 break;
         }
         if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
-            Zoomie* newZoomie = new Zoomie(world, newX, newY); //create a new Zoomie
+            new Zoomie(world, newX, newY); //create a new Zoomie
         }
         //if the new position is not valid or not empty, then no breeding occurs
     }

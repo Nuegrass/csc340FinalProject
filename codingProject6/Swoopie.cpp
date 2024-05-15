@@ -66,7 +66,7 @@ void Swoopie::breed() {
                 break;
         }
         if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
-            Swoopie *newSwoopie = new Swoopie(world, newX, newY); //create a new Swoopie
+            new Swoopie(world, newX, newY); //create a new Swoopie
 
         }
         //if the new position is not valid or not empty, then no breeding occurs

@@ -28,8 +28,7 @@ Organism::~Organism(){
 
 }
 void Organism::breed() {
-    if(breedTicks ==3){
-    }
+
 }      // Whether or not to breed
 void Organism::move(){
     breedTicks++;
