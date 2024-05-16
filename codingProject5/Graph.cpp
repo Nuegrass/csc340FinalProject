@@ -10,10 +10,10 @@
 #include <map>
 #include "graph.h"
 //add Vertices
-Graph::Graph(int vertices) : V(vertices) {
+Graph::Graph(int vertices,int egde) : V(vertices),E(egde) {
 
     vertixList.resize(V+1, nullptr);
-    adjList.resize(V*V, nullptr);
+    adjList.resize(E);
 }
 
 Graph::~Graph() {
@@ -83,18 +83,15 @@ void Graph::addEdge(int from, int dest) {
         adjList[from] = newVertex;
         vertixList.at(from)=newVertex;//add to vertixList just add from
 
-        Vertix* current = adjList[from];
-        while (current->next != nullptr) {//go over till the edge
-            current = current->next;
-        }
-        current->dest=dest;
-        newVertex->next=adjList[from];
+
+        newVertex->dest=dest;
+        newVertex->next= copyVertix(adjList[dest]);
 
     }else if(adjList[from] != nullptr&&adjList[dest] != nullptr) {//if both not null
 
         // If there are vertices in the list for 'from', find the last vertex and append the new one
-        Vertix* current = adjList[from];
-        Vertix* destination = adjList[dest];
+        Vertix* current = copyVertix(adjList[from]);
+        Vertix* destination = copyVertix(adjList[dest]);
         while (current->next != nullptr) {//go over till the edge
             current = current->next;
         }
@@ -112,13 +109,14 @@ void Graph::addEdge(int from, int dest) {
         while (current->next != nullptr) {//go over till the edge
             current = current->next;
         }
-        current->dest=dest;
-        newVertex->predecessor = current; // Initialize predecessor pointer
-        current->next = newVertex; // Append the new vertex at the end of the list
+        Vertix* fromVertix= copyVertix(current);
+        fromVertix->dest=dest;
+        newVertex->predecessor = fromVertix; // Initialize predecessor pointer
+        fromVertix->next = newVertex; // Append the new vertex at the end of the list
 
          adjList[dest] = newVertex;
          vertixList[dest]=newVertex; //just add dest
-    }else {//if both null
+    }else {//if both null//no copyVertix needed
         //set from
         Vertix* newVertexFrom = new Vertix;
         newVertexFrom->dest = dest; // Set destination
@@ -140,10 +138,23 @@ void Graph::addEdge(int from, int dest) {
     }
 
 
-
       std::cout << "Added edge from " << from << " to " << dest << std::endl;
 }
 
+Vertix* Graph::copyVertix(const Vertix* original) {
+    if (original == nullptr) {
+        return nullptr;
+    }
+
+    // Create a new vertex and copy the data
+    Vertix* copiedVertix = new Vertix;
+    copiedVertix->dest = original->dest;
+    copiedVertix->next = original->next;
+    copiedVertix->predecessor = original->predecessor;
+    copiedVertix->VertixColor = original->VertixColor;
+
+    return copiedVertix;
+}
 
 void Graph::BFS(Vertix* source) {
 

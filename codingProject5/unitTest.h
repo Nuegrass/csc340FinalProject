@@ -12,7 +12,7 @@ namespace UNITTEST{
 
     bool testVertix(){
         try {
-            Graph graph(6); // Attempt to create a Graph object with 6 vertices
+            Graph graph(6,6); // Attempt to create a Graph object with 6 vertices
             return (graph.getV()==6);
         } catch (const std::exception& e) {
             std::cerr << "An exception occurred: " << e.what() << std::endl;
@@ -22,7 +22,7 @@ namespace UNITTEST{
 
     bool testBFS(){
         try{
-            Graph graph(5);
+            Graph graph(5,6);
             graph.addEdge(0, 1);//0
             graph.addEdge(0, 2);//1
             graph.addEdge(1, 3);//2
@@ -65,12 +65,13 @@ namespace UNITTEST{
 
         bool result= true;
         try {
-            Graph graph(5);
+            Graph graph(5,6);
             graph.addEdge(0, 1);//0->1
             graph.addEdge(0, 2);//0->1->2
-            graph.addEdge(1, 3);//1->3?
+            graph.addEdge(1, 3);//1->3
             graph.addEdge(2, 4);
             graph.addEdge(3, 4);
+
             std::vector<Vertix*> adjList = graph.getAdjList();
 
             std::cout<<"\nfrom 0 to "<<adjList[0]->dest;
@@ -78,8 +79,12 @@ namespace UNITTEST{
                 std::cout<<"\nfrom 0 to "<<adjList[0]->next->dest;
                 if(adjList.at(0)->next->dest == 2){
 
+                }else{
+                    std::cout<<"\n supposed to be from 0 to 2 but actual is "<<adjList[0]->next->dest;
+                    return false;
                 }
             }else{
+                std::cout<<"\n supposed to be from 0 to 2 but actual is "<<adjList[0]->dest;
                 return false;
             }
 
@@ -87,18 +92,21 @@ namespace UNITTEST{
             if (adjList.at(1)->dest == 3) {
 
             }else{
+                std::cout<<"\n supposed to be from 0 to 2 but actual is "<<adjList[1]->dest;
                 return false;
             }
             std::cout<<"\nfrom 2 to "<<adjList[2]->dest;
             if (adjList.at(2)->dest == 4) {
 
             }else{
+                std::cout<<"\n supposed to be from 0 to 2 but actual is "<<adjList[2]->dest;
                 return false;
             }
             std::cout<<"\nfrom 3 to "<<adjList[3]->dest;
             if (adjList.at(3)->dest == 4) {
 
             }else{
+                std::cout<<"\n supposed to be from 0 to 2 but actual is "<<adjList[3]->dest;
                 return false;
             }
             return result;
@@ -132,7 +140,7 @@ namespace UNITTEST{
 //
      bool testCopyConstructor() {
          // Create graph1 with edges
-         Graph graph1(5);
+         Graph graph1(5,2);
          graph1.addEdge(0, 1);
          graph1.addEdge(0, 2);
 
@@ -164,7 +172,7 @@ namespace UNITTEST{
 
 
     bool testCopyAssignment() {
-        Graph graph(5);
+        Graph graph(5,5);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
         graph.addEdge(0, 3);
@@ -182,7 +190,7 @@ namespace UNITTEST{
 
      bool testDestructor() {
          // Create an empty graph
-         Graph graph(0);
+         Graph graph(0,0);
 
          // Delete the graph object
          // After deletion, the adjacency list should be empty

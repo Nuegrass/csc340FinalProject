@@ -21,11 +21,12 @@ class Graph {
 private:
     std::queue<Vertix*> Q;
     int V;//number of vertices
+    int E;//number of edges
     std::vector<Vertix*> vertixList;//connection
     std::vector<Vertix*> adjList;//connection
 
 public:
-    Graph(int vertices);//add V
+    Graph(int vertices,int edge);//add V
     Graph(const Graph& other); // Copy constructor
     Graph& operator=(const Graph& other); // Copy assignment operator
     ~Graph();
@@ -46,6 +47,7 @@ public:
     }
 
 
+    Vertix* copyVertix(const Vertix* original);
 
 };
 
