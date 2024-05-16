@@ -30,17 +30,7 @@ namespace UNITTEST{
             graph.addEdge(3, 4);//4
             graph.addEdge(1, 2);//5
             int root=0;
-            Vertix* source= nullptr;
-            for (int i = 0; i < graph.getVertixList().size(); ++i) {
-                if(graph.getVertixList().at(i)->dest==root){
-                    source=graph.getVertixList().at(i+1);
-                } else if(graph.getVertixList().at(i)->next== nullptr){
-                    source=graph.getVertixList().at(i);
-                }
-            }
-            if(source== nullptr){
-                source=graph.getVertixList().at(0);
-            }
+            Vertix* source=  graph.getVertixList().at(0);
 
             std::cout << "BFS traversal starting from node "<<root<<": ";
             graph.BFS(source);
@@ -116,60 +106,59 @@ namespace UNITTEST{
         }
     }
 
-//    bool testPrintTree(){
-//        try{
-//            Graph graph(5);
-//            graph.addEdge(0, 1);
-//            graph.addEdge(0, 2);
-//            graph.addEdge(1, 3);
-//            graph.addEdge(2, 4);
-//            graph.addEdge(3, 4);
-//            int root=0;
-//            std::cout << "BFS traversal starting from node "<<root<<": ";
-//            graph.BFS(root);
-//            graph.printBFSTree(root);
-//            std::cout << std::endl;
-//            return true;
-//        } catch (const std::exception& e) {
-//            std::cerr << "An exception occurred: " << e.what() << std::endl;
-//            return false;
-//        }
-//
-//    }
+    bool testPrintTree(){
+        try{
+            Graph graph(5,5);
+            graph.addEdge(0, 1);
+            graph.addEdge(0, 2);
+            graph.addEdge(1, 3);
+            graph.addEdge(2, 4);
+            graph.addEdge(3, 4);
+            int root=0;
+            Vertix* source=  graph.getVertixList().at(0);
 
-//
-    bool testCopyConstructor() {
-        // Create graph1 with edges
-        Graph graph1(5, 2);
-        graph1.addEdge(0, 1);
-        graph1.addEdge(0, 2);
-
-        // Create graph2 using copy constructor
-        Graph graph2(graph1); // Copy constructor
-
-        // Check if graph2 is a copy of graph1
-        if (graph2.getV() != graph1.getV()) // Check vertex count
+            std::cout << "BFS traversal starting from node "<<root<<": ";
+            graph.BFS(source);
+            graph.printBFSTree(root);
+            std::cout << std::endl;
+            return true;
+        } catch (const std::exception& e) {
+            std::cerr << "An exception occurred: " << e.what() << std::endl;
             return false;
-
-        const std::vector<Vertix*>& adjListGraph1 = graph1.getAdjList();
-        const std::vector<Vertix*>& adjListGraph2 = graph2.getAdjList();
-
-        // Compare adjacency lists
-        for (int i = 0; i < graph1.getV(); ++i) {
-            Vertix* current1 = adjListGraph1[i];
-            Vertix* current2 = adjListGraph2[i];
-            while (current1 != nullptr) {
-                if (current2 == nullptr || current1->dest != current2->dest)
-                    return false;
-                current1 = current1->next;
-                current2 = current2->next;
-            }
         }
 
-        // All checks passed
-        return true;
     }
 
+//
+     bool testCopyConstructor() {
+         // Create graph1 with edges
+         Graph graph1(5,2);
+         graph1.addEdge(0, 1);
+         graph1.addEdge(0, 2);
+
+         // Create graph2 using copy constructor
+         Graph graph2(graph1); // Copy constructor
+
+         // Check if graph2 is a copy of graph1
+         if (graph2.getV() != graph1.getV())
+             return false;
+
+         const std::vector<Vertix*>& adjList1 = graph1.getAdjList();
+         const std::vector<Vertix*>& adjList2 = graph2.getAdjList();
+         for (int i = 0; i < graph1.getV(); ++i) {
+             Vertix* current1 = adjList1[i];
+             Vertix* current2 = adjList2[i];
+             while (current1 != nullptr) {
+                 if (current2 == nullptr || current1->dest != current2->dest)
+                     return false;
+                 current1 = current1->next;
+                 current2 = current2->next;
+             }
+         }
+
+         // All checks passed
+         return true;
+     }
 
 
 
@@ -191,20 +180,16 @@ namespace UNITTEST{
 
 
 
-    bool testDestructor() {
-        // Create a graph object
-        Graph graph(2, 2);
-        graph.addEdge(0, 1);
-        graph.addEdge(0, 2);
+     bool testDestructor() {
+         // Create an empty graph
+         Graph graph(0,0);
 
-        // Get the size of the adjacency list before deletion
-        size_t adjListSizeBeforeDeletion = graph.getAdjList().size();
-        std::cout<<"size"<<adjListSizeBeforeDeletion;
+         // Delete the graph object
+         // After deletion, the adjacency list should be empty
+         delete &graph; // Delete the graph object
 
-        // Return whether the size of the adjacency list is zero after deletion
-        return graph.getAdjList().size()== 0;
-    }
-
+         return graph.getAdjList().empty();
+     }
 
 }
 

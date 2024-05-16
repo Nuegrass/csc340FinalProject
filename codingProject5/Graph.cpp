@@ -12,7 +12,7 @@
 //add Vertices
 Graph::Graph(int vertices,int egde) : V(vertices),E(egde) {
 
-    vertixList.resize(V+1, nullptr);
+    vertixList.resize(V, nullptr);
     adjList.resize(E);
 }
 
@@ -93,6 +93,21 @@ Graph& Graph::operator=(const Graph& other) {
 
 void Graph::addEdge(int from, int dest) {
     // Check if 'from' vertex exists in the adjacency list
+    if(vertixList[from]== nullptr&&vertixList[dest]== nullptr){//if both null
+
+        Vertix* newVertexDest = new Vertix;
+        newVertexDest->dest = dest;
+        newVertexDest->next = nullptr;
+        newVertexDest->predecessor = nullptr;
+        vertixList[dest]=newVertexDest;
+
+        Vertix* newVertexFrom = new Vertix;
+        newVertexFrom ->dest = dest;
+        newVertexFrom ->next = nullptr;
+        newVertexFrom ->predecessor = nullptr;
+        vertixList[from]=newVertexFrom ;
+    }
+
     if (from >= adjList.size() || adjList[from] == nullptr) {
         // If 'from' vertex doesn't exist, create it
         adjList.resize(std::max(from + 1, (int)adjList.size()), nullptr);
@@ -122,9 +137,11 @@ void Graph::addEdge(int from, int dest) {
         // Append the new vertex to the end of the list
         current->next = newVertexDest;
         newVertexDest->predecessor = current;
+        vertixList[dest]=newVertexDest;
     } else {
         // If 'from' vertex doesn't have any adjacent vertices yet
         adjList[from] = newVertexDest;
+        vertixList[from]=newVertexDest;
     }
 
     // Output message indicating the edge addition
@@ -132,51 +149,38 @@ void Graph::addEdge(int from, int dest) {
 }
 
 
-Vertix* Graph::copyVertix(const Vertix* original) {
-    if (original == nullptr) {
-        return nullptr;
+void Graph::BFS(Vertix* source) {
+    // Initialize vertices
+    for (Vertix* vertix : vertixList) {
+        vertix->VertixColor = white;
+        vertix->predecessor = nullptr;
     }
 
-    // Create a new vertex and copy the data
-    Vertix* copiedVertix = new Vertix;
-    copiedVertix->dest = original->dest;
-    copiedVertix->next = original->next;
-    copiedVertix->predecessor = original->predecessor;
-    copiedVertix->VertixColor = original->VertixColor;
-
-    return copiedVertix;
-}
-
-void Graph::BFS(Vertix* source) {
-
-            //vertixlist:  1, 2, 3, 4, 5
-        for (Vertix* vertix: vertixList) {//set all vertix
-            vertix->VertixColor=white;
-           //vertix->distance=-1
-            vertix->predecessor= nullptr;
-        }
-    //V: 1,2,4,6,5,3
-    //verixList[0,1,2,3,4,5]
-    //source=1
-    //vertixList[source]=2
-
-    source->VertixColor=grey;
-    //vertix->distance=-1
-    source->predecessor= nullptr;
+    // Initialize source vertex
+    source->VertixColor = grey;
+    source->predecessor = nullptr;
     Q.push(source);
-        while (!Q.empty()) {
-            Vertix* u=Q.front();
-            Q.pop();
-            for(Vertix* vertix:adjList) {
-                if(vertix->VertixColor==white) {
-                    vertix->VertixColor=grey;
-                    vertix->predecessor=u;
-                    Q.push(vertix);
-                }
-                u->VertixColor=black;
+
+    while (!Q.empty()) {
+        Vertix* u = Q.front();
+        Q.pop();
+
+        // Traverse the adjacency list of the current vertex 'u'
+        Vertix* adjVertex = adjList[u->dest];
+        while (adjVertex != nullptr) {
+            if (adjVertex->VertixColor == white) {
+                adjVertex->VertixColor = grey;
+                adjVertex->predecessor = u;
+                Q.push(adjVertex);
             }
+            adjVertex = adjVertex->next;
         }
+
+        // Set the color of the current vertex to black
+        u->VertixColor = black;
+    }
 }
+
 void Graph::printShortestPath(int source) {
     std::vector<bool> visited(V, false);
     std::queue<int> q;
