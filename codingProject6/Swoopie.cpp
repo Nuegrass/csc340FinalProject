@@ -3,19 +3,18 @@
 //
 #include "Swoopie.h"
 
-//FIXME: Need correction here
 Swoopie::Swoopie(World *world, int x, int y) {
     this->x = x;
     this->y = y;
     this->breedTicks = 0;
-    this->moved = false;
+    this->moved = true; //set default moved to true since when new Swoopie is bred, it is considered moved
     this->starveTicks = 0;
 
     this->world = world;//points the organism to the world
     this->world->setAt(x,y,this); //setting the position of the organism to x , y
 
 }
-//FIXME: Need correction here
+
 Swoopie::~Swoopie() {
     std::cout << "entering Swoopie::~Swoopie() ...\n";
     if (world != nullptr) {
@@ -50,7 +49,11 @@ void Swoopie::breed() {
         //find an empty cell to breed from the current cell
         int newX = x;
         int newY = y;
-        int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
+
+        std::random_device rd;
+        std::mt19937 generator(rd()); // Seed the generator
+        std::uniform_int_distribution<> distribution(0,3);// to generate a random number from 0-3
+        int direction = distribution(generator); // 0 is right, 1 is left, 2 is up, 3 is down
         switch (direction) {
             case 0: //right
                 newX = x + 1;
@@ -67,12 +70,11 @@ void Swoopie::breed() {
         }
         if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
             new Swoopie(world, newX, newY); //create a new Swoopie
-
         }
         //if the new position is not valid or not empty, then no breeding occurs
     }
 }
-//FIXME: check Memory leak here
+
 void Swoopie::move() {
 
     moved = true; //set moved to true
@@ -101,8 +103,10 @@ void Swoopie::move() {
         world->setAt(x, y, nullptr);
         x--;
     } else {
-
-        int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
+        std::random_device rd;
+        std::mt19937 generator(rd()); // Seed the generator
+        std::uniform_int_distribution<> distribution(0,3);// to generate a random number from 0-3
+        int direction = distribution(generator); // 0 is right, 1 is left, 2 is up, 3 is down
         int newX = x;
         int newY = y;
         switch (direction) {
@@ -127,15 +131,12 @@ void Swoopie::move() {
         }
     }
 
-
-    breed();
-    starve();
+    breed(); // call breed function in which the Swoopie will breed if it survives for 8 time steps
+    starve(); // the swoopie will die if it has not eaten a Zoomie within the last 3 time steps
 
 }
 
-//If a Swoopie has not eaten a Zoomie within the last three time steps, then at the end of the third time step it will starve and die. The
-//Swoopie should then be removed from the grid of cells
-//FIXME: check for Memory leak here
+// Swoopies will die if they do not eat a Zoomie within the last 3 time steps.
 bool Swoopie::starve() {
     if (starveTicks == 3) {
         starveTicks = 0;
@@ -149,8 +150,9 @@ int Swoopie::getType() {
 }
 
 //helper function
+//check if there is a Zoomie in the given position
 bool Swoopie::isZoomie(int x, int y) {
-    //check if x and y are [0,30]
+    //check if x and y are [0,29]
     if(world->isValid(x, y) && (world->getAt(x, y) != nullptr)){
         if(world->getAt(x, y)->getType() == 1){
             return true;
@@ -158,6 +160,7 @@ bool Swoopie::isZoomie(int x, int y) {
     }
     return false;
 }
+
 std::string Swoopie::toString() {
     std::string tmp;
     int tmpX = this->x;

@@ -22,6 +22,7 @@ public:
     //accessors
     int getX() const { return x; }
     int getY() const { return y; }
+    int getBreedTicks() const { return breedTicks; }
 
 protected:
     int x,y;                        // Position in the world

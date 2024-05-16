@@ -106,7 +106,7 @@ bool testSwoopie_Starve() { //test if the swoopie can starve and die
         World *world = new World(); // 30x30 grid
         Organism *swoopie = new Swoopie(world, 15, 15); // Swoopie at (15,15)
 
-        for (unsigned int i = 0; i < 4; i++) { //move 3 times
+        for (unsigned int i = 0; i < 3; i++) { //move 3 times
             swoopie->move();
         }
         int numSwoopies = 0;
@@ -119,6 +119,10 @@ bool testSwoopie_Starve() { //test if the swoopie can starve and die
             }
         }
 
+        if (numSwoopies != 0) { // check if the swoopie has died
+            std::cout << "numSwoopies: " << numSwoopies << std::endl;
+            return false;
+        }
 
         return true;
     } catch (const std::exception &e) {
@@ -127,6 +131,39 @@ bool testSwoopie_Starve() { //test if the swoopie can starve and die
     }
 
 }
+
+
+//test all unit test
+void callAllUnitTests(){
+    //unit tests
+    if (testZoomieConsturctor()) {
+        std::cout << "Zoomie Constructor Test Passed" << std::endl;
+    } else {
+        std::cout << "Zoomie Constructor Test Failed" << std::endl;
+    }
+
+    //test testZoomie_Move_Breed()
+    if (testZoomie_Move_Breed()) {
+        std::cout << "Zoomie Move Breed Test Passed" << std::endl;
+    } else {
+        std::cout << "Zoomie Move Breed Test Failed" << std::endl;
+    }
+
+    //test testSwoopieConsturctor()
+    if (testSwoopieConsturctor()) {
+        std::cout << "Swoopie Constructor Test Passed" << std::endl;
+    } else {
+        std::cout << "Swoopie Constructor Test Failed" << std::endl;
+    }
+    // test testSwoopie_Starve()
+    if (testSwoopie_Starve()) {
+        std::cout << "Swoopie Starve Test Passed" << std::endl;
+    } else {
+        std::cout << "Swoopie Starve Test Failed" << std::endl;
+    }
+
+}
+
 
 
 #endif //CSC340FINALGROUPPROJECT_UNITTEST_H

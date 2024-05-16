@@ -34,7 +34,9 @@ void World::setAt(int x, int y, Organism *org) {
 }
 void World::Display(){
     std::cout <<"Entering Display() function"<< std::endl;
-    //std::cout << grid[0][0]->getType();
+
+    //loop through the grid and display the grid
+    // "_" is empty cell, "o" is Zoomie, "x" is Swoopie
     for(int i = 0; i < WORLDSIZE; i++){
         for(int j = 0; j < WORLDSIZE; j++){
             if(grid[i][j] == nullptr){
@@ -45,32 +47,17 @@ void World::Display(){
                 std::cout << "x";
             }
         }
-        std::cout << std::endl;
+        std::cout << std::endl; //new line
     }
-}                 //display the grid
+}
+
+// 1. set all organisms to  "moved = false", have not moved
+// 2. move all swoopies first
+// 3. move all zoomies
 void World::SimulateOneStep(){
     std::cout << "simulating one step" << std::endl;
-    //move all swoopies first
-    for (int i = 0; i < WORLDSIZE; ++i) {
-        for (int j = 0; j < WORLDSIZE; ++j) {
-            if (grid[i][j] != nullptr && grid[i][j]->getType() == 2 && grid[i][j]->moved == false){
-                if(!grid[i][j]->starve()){ //move if the Swoopie does not starve
-                    grid[i][j]->move();
-                }
-            }
 
-        }
-    }
-
-    //move all zoomies
-    for (int i = 0; i < WORLDSIZE; ++i) {
-        for (int j = 0; j < WORLDSIZE; ++j) {
-            if (grid[i][j] != nullptr && grid[i][j]->getType() == 1 && grid[i][j]->moved == false){
-                grid[i][j]->move();
-            }
-        }
-    }
-
+    //set all organisms are not moved
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
             if (grid[i][j] != nullptr){
@@ -79,10 +66,27 @@ void World::SimulateOneStep(){
         }
     }
 
+    //move all swoopies
+    // getType():  1 is zoomie and 2 is swoopie
+    for (int i = 0; i < WORLDSIZE; ++i) {
+        for (int j = 0; j < WORLDSIZE; ++j) {
+            if (grid[i][j] != nullptr && (int)grid[i][j]->getType() == 2 && !grid[i][j]->moved){ //if the organism is swoopie and has not moved
+                grid[i][j]->move();
+            }
+        }
+    }
+    //move all zoomies
+    for (int i = 0; i < WORLDSIZE; ++i) {
+        for (int j = 0; j < WORLDSIZE; ++j) {
+            if (grid[i][j] != nullptr && (int)grid[i][j]->getType() == 1 && !grid[i][j]->moved){ //if the organism is zoomie and has not moved
+                grid[i][j]->move();
 
+            }
+        }
+    }
 }
-//helper functions
 
+//helper functions
 bool World::isValid(int x, int y){ // check (newX, newY) is in 30x30 grid; but x in [0,29] and y in [0,29]
 
     if(x >= 0 && x < WORLDSIZE && y >= 0 && y < WORLDSIZE){
@@ -90,4 +94,4 @@ bool World::isValid(int x, int y){ // check (newX, newY) is in 30x30 grid; but x
     }else{
         return false;
     }
-} // check (x,y) is in 30x30 grid
+}

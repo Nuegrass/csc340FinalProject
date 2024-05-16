@@ -11,6 +11,7 @@ Organism::Organism(World *world, int x, int y){
     this->x = x;
     this->y = y;
     this->breedTicks = 0;
+    this->moved = false;
     this->world = world;//points the organism to the world
 }
 
