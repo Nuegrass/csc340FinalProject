@@ -22,7 +22,7 @@ private:
     std::queue<Vertix*> Q;
     int V;//number of vertices
     int E;//number of edges
-    std::vector<Vertix*> vertixList;//connection
+        std::vector<Vertix*> vertixList;//connection
     std::vector<Vertix*> adjList;//connection
 
 public:

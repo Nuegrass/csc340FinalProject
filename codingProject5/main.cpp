@@ -21,8 +21,9 @@ int main() {
     //printTestResult(UNITTEST::testDestructor(),"testDestructor");
 
     printTestResult(UNITTEST::testBFS(),"testBFS");
-  //  printTestResult(  UNITTEST::testPrintTree(),"testPrintTree");
-    //  printTestResult(  UNITTEST::testPrintShortest(),"testPrintShortest");
+  //  printTestResult(  UNITTEST::testPrintShortestPath(),"testPrintShortest");
+    printTestResult(  UNITTEST::testPrintTree(),"testPrintTree");
+
 
 
     return 0;
