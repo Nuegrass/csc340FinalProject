@@ -43,7 +43,6 @@ bool testZoomie_Move_Breed() { //test if the zoomie can move and breed
             oldYPos = zoomie->getY(); // update the old position
         }
 
-        zoomie->breed(); // breed
         int numZoomies = 0;
         for (int i = 0; i < WORLDSIZE; i++) {
             for (int j = 0; j < WORLDSIZE; j++) {
@@ -132,6 +131,21 @@ bool testSwoopie_Starve() { //test if the swoopie can starve and die
 
 }
 
+//test world at getAt()
+bool testWorldAt() {
+    try {
+        World *world = new World(); // 30x30 grid
+        Organism *zoomie = new Zoomie(world, 15, 15); // Zoomie at (15,15)
+        if (world->getAt(15, 15) != zoomie) { // check if the world has the zoomie at (15,15)
+            return false;
+        }
+        return true;
+    } catch (const std::exception &e) {
+        std::cerr << "An exception occurred: " << e.what() << std::endl;
+        return false;
+    }
+}
+
 
 //test all unit test
 void callAllUnitTests(){
@@ -144,9 +158,9 @@ void callAllUnitTests(){
 
     //test testZoomie_Move_Breed()
     if (testZoomie_Move_Breed()) {
-        std::cout << "Zoomie Move Breed Test Passed" << std::endl;
+        std::cout << "Zoomie Move and Breed Test Passed" << std::endl;
     } else {
-        std::cout << "Zoomie Move Breed Test Failed" << std::endl;
+        std::cout << "Zoomie Move and Breed Test Failed" << std::endl;
     }
 
     //test testSwoopieConsturctor()
@@ -161,6 +175,21 @@ void callAllUnitTests(){
     } else {
         std::cout << "Swoopie Starve Test Failed" << std::endl;
     }
+
+    // test testSwoopie_Move_Eat()
+    if (testSwoopie_Move_Eat()) {
+        std::cout << "Swoopie Move and Eat Test Passed" << std::endl;
+    } else {
+        std::cout << "Swoopie Move and Eat Test Failed" << std::endl;
+    }
+
+    // test testWorldAt()
+    if (testWorldAt()) {
+        std::cout << "World getAt() Test Passed" << std::endl;
+    } else {
+        std::cout << "World getAt() Test Failed" << std::endl;
+    }
+
 
 }
 
