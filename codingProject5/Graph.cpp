@@ -78,6 +78,7 @@ void Graph::addEdge(int from, int dest) {
     if (adjList[from] == nullptr) {
         // If there are no vertices in the list for 'from', directly add the new vertex
         adjList[from] = newVertex;
+
     } else {
         // If there are vertices in the list for 'from', find the last vertex and append the new one
         Vertix* current = adjList[from];
@@ -87,34 +88,41 @@ void Graph::addEdge(int from, int dest) {
         current->next = newVertex; // Append the new vertex at the end of the list
         newVertex->predecessor = current; // Set the predecessor of the new vertex
     }
-
+    vertixList.push_back(newVertex);//adding into vertix List
     std::cout << "Added edge from " << from << " to " << dest << std::endl;
 }
 
 
 void Graph::BFS(int source) {
-    std::vector<bool> visited(V, false);
-    std::queue<int> q;
 
-    visited[source] = true;
-    q.push(source);
-    std::cout<<"shortest path:";
-    std::cout<<source;
-    while (!q.empty()) {
-        int current = q.front();
-        q.pop();
 
-        //shortest path
-        for (Vertix* neighbor = adjList[current]; neighbor != nullptr; neighbor = neighbor->next) {
-            if (!visited[neighbor->dest]) {
-                std::cout<<"->"<<neighbor->dest;
-                visited[neighbor->dest] = true;
-                q.push(neighbor->dest);
+        for (Vertix* vertix: vertixList) {//set all vertix
+            vertix->VertixColor=white;
+           //vertix->distance=-1
+            vertix->predecessor= nullptr;
+        }
+    //V: 1,2,3,4,5
+    //verixList[0,1,2,3,4,5]
+    //source=1
+    //vertixList[source]=2
+
+    vertixList->current=source;
+    vertixList->VertixColor=grey;
+    //vertix->distance=-1
+    vertixList[source]->predecessor= nullptr;
+    Q.push(vertixList[source]);
+        while (!Q.empty()) {
+            Vertix* u=Q.front();
+            Q.pop();
+            for(Vertix* vertix:adjList) {
+                if(vertix->VertixColor==white) {
+                    vertix->VertixColor=grey;
+                    vertix->predecessor=u;
+                    Q.push(vertix);
+                }
+                u->VertixColor=black;
             }
         }
-    }
-
-
 }
 void Graph::printShortestPath(int source) {
     std::vector<bool> visited(V, false);

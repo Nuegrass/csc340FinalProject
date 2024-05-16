@@ -42,6 +42,7 @@ namespace UNITTEST{
     }
 
     bool testAddEdge() {
+        bool result=false;
         try {
             Graph graph(5);
             graph.addEdge(0, 1);
@@ -50,16 +51,36 @@ namespace UNITTEST{
             graph.addEdge(2, 4);
             graph.addEdge(3, 4);
             std::vector<Vertix*> adjList = graph.getAdjList();
-            std::cout<<"AT 0 :"<<adjList.at(0)->dest;
+
+            std::cout<<"\nfrom 0 to "<<adjList.at(0)->dest;
             if (adjList.at(0)->dest == 1) {
-                std::cout<<"AT 0 :"<<adjList.at(0)->next->dest;
-                //
+                std::cout<<"\nfrom 0 to "<<adjList.at(0)->next->dest;
                 if(adjList.at(0)->next->dest == 2){
-                    return true;
+                    result=true;
                 }
+            }else{
+                result=false;
             }
 
-            return false;
+            std::cout<<"\nfrom 1 to "<<adjList.at(1)->dest;
+            if (adjList.at(1)->dest == 3) {
+                result=true;
+            }else{
+                result=false;
+            }
+            std::cout<<"\nfrom 2 to "<<adjList.at(2)->dest;
+            if (adjList.at(2)->dest == 4) {
+                result=true;
+            }else{
+                result=false;
+            }
+            std::cout<<"\nfrom 3 to "<<adjList.at(3)->dest;
+            if (adjList.at(3)->dest == 4) {
+                result=true;
+            }else{
+                result=false;
+            }
+            return result;
         } catch (const std::exception &e) {
             std::cerr << "An exception occurred: " << e.what() << std::endl;
             return false;

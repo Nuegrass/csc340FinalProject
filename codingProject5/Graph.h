@@ -9,21 +9,22 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-
+enum color {black,grey,white};//white-not visited, grey&black visited
 struct Vertix {
-    enum color {black,grey,white};//white-not visited, grey&black visited
+    enum color VertixColor;
     Vertix* predecessor;//to point previous node
     Vertix* next;//to point next
     int dest;
+    int current;
 };
 
 class Graph {
 private:
+    std::queue<Vertix*> Q;
     int V;//number of vertices
-
+    std::vector<Vertix*> vertixList;//connection
     std::vector<Vertix*> adjList;//connection
-    std::queue<int> tree;
-    std::queue<int> shortestPath;
+
 public:
     Graph(int vertices);//add V
     Graph(const Graph& other); // Copy constructor
@@ -43,10 +44,6 @@ public:
     }
 
 
-    // Getter function for tree
-    const std::queue<int>& getTree() const {
-        return tree;
-    }
 
 
 };
