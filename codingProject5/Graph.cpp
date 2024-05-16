@@ -11,7 +11,9 @@
 #include "graph.h"
 //add Vertices
 Graph::Graph(int vertices) : V(vertices) {
-    adjList.resize(V, nullptr);
+
+    vertixList.resize(V+1, nullptr);
+    adjList.resize(V*V, nullptr);
 }
 
 Graph::~Graph() {
@@ -25,92 +27,141 @@ Graph::~Graph() {
     }
 
 }
-//Graph::Graph(const Graph& other) : V(other.V), adjList(other.adjList.size()), parent(other.parent) {
-//    // Deep copy of adjacency lists
-//    for (size_t i = 0; i < other.adjList.size(); ++i) {
-//        Vertix* current = other.adjList[i];
-//        Vertix* prev = nullptr;
-//        while (current != nullptr) {
-//            Vertix* newVertix = new Vertix;
-//            if (prev == nullptr)
-//                adjList[i] = newVertix;
-//            else
-//                prev->next = newVertix;
-//            prev = newVertix;
-//            current = current->next;
-//        }
-//    }
-//}
+Graph::Graph(const Graph& other) : V(other.V), adjList(other.adjList.size()) {
+    // Deep copy of adjacency lists
+    for (size_t i = 0; i < other.adjList.size(); ++i) {
+        Vertix* current = other.adjList[i];
+        Vertix* prev = nullptr;
+        while (current != nullptr) {
+            Vertix* newVertix = new Vertix;
+            if (prev == nullptr)
+                adjList[i] = newVertix;
+            else
+                prev->next = newVertix;
+            prev = newVertix;
+            current = current->next;
+        }
+    }
+}
 
-//Graph& Graph::operator=(const Graph& other) {
-//    if (this != &other) { // Check for self-assignment
-//        // Deep copy of adjacency lists
-//        std::vector<Vertix*> newAdjList(other.adjList.size(), nullptr);
-//        for (size_t i = 0; i < other.adjList.size(); ++i) {
-//            Vertix* current = other.adjList[i];
-//            Vertix* prev = nullptr;
-//            while (current != nullptr) {
-//                Vertix* newVertix = new Vertix;
-//                if (prev == nullptr)
-//                    newAdjList[i] = newVertix;
-//                else
-//                    prev->next = newVertix;
-//                prev = newVertix;
-//                current = current->next;
-//            }
-//        }
-//        // Swap the contents
-//        V = other.V;
-//        adjList.swap(newAdjList);
+Graph& Graph::operator=(const Graph& other) {
+    if (this != &other) { // Check for self-assignment
+        // Deep copy of adjacency lists
+        std::vector<Vertix*> newAdjList(other.adjList.size(), nullptr);
+        for (size_t i = 0; i < other.adjList.size(); ++i) {
+            Vertix* current = other.adjList[i];
+            Vertix* prev = nullptr;
+            while (current != nullptr) {
+                Vertix* newVertix = new Vertix;
+                if (prev == nullptr)
+                    newAdjList[i] = newVertix;
+                else
+                    prev->next = newVertix;
+                prev = newVertix;
+                current = current->next;
+            }
+        }
+        // Swap the contents
+        V = other.V;
+        adjList.swap(newAdjList);
 //        parent = other.parent;
-//    }
-//    return *this;
-//}
+    }
+    return *this;
+}
 
 void Graph::addEdge(int from, int dest) {
     // Create a new vertex for the destination
-    Vertix* newVertex = new Vertix;
-    newVertex->dest = dest; // Set destination
-    newVertex->next = nullptr; // Initialize next pointer
-    newVertex->predecessor = nullptr; // Initialize predecessor pointer
+
 
     // Check if there are any vertices in the adjacency list for the 'from' vertex
-    if (adjList[from] == nullptr) {
+    if (adjList[from] == nullptr&&adjList[dest] != nullptr) {//if from V is null but not dest
         // If there are no vertices in the list for 'from', directly add the new vertex
+        Vertix* newVertex = new Vertix;//from V
+        newVertex->dest = dest; // Set destination
+        newVertex->next = nullptr; // Initialize next pointer
+        newVertex->predecessor =nullptr; // Initialize predecessor pointer
         adjList[from] = newVertex;
+        vertixList.at(from)=newVertex;//add to vertixList just add from
 
-    } else {
-        // If there are vertices in the list for 'from', find the last vertex and append the new one
         Vertix* current = adjList[from];
-        while (current->next != nullptr) {
+        while (current->next != nullptr) {//go over till the edge
             current = current->next;
         }
+        current->dest=dest;
+        newVertex->next=adjList[from];
+
+    }else if(adjList[from] != nullptr&&adjList[dest] != nullptr) {//if both not null
+
+        // If there are vertices in the list for 'from', find the last vertex and append the new one
+        Vertix* current = adjList[from];
+        Vertix* destination = adjList[dest];
+        while (current->next != nullptr) {//go over till the edge
+            current = current->next;
+        }
+
+        current->dest=dest;
+        current->next = destination; // Append the new vertex at the end of the list
+        destination->predecessor = current; // Set the predecessor of the new vertex
+    }else if(adjList[from]!= nullptr&&adjList[dest]== nullptr){//if dest is null
+         Vertix* newVertex = new Vertix;//dest
+         newVertex->dest =-1; // Set destination
+         newVertex->next = nullptr; // Initialize next pointer
+
+        Vertix* current = adjList[from];
+
+        while (current->next != nullptr) {//go over till the edge
+            current = current->next;
+        }
+        current->dest=dest;
+        newVertex->predecessor = current; // Initialize predecessor pointer
         current->next = newVertex; // Append the new vertex at the end of the list
-        newVertex->predecessor = current; // Set the predecessor of the new vertex
+
+         adjList[dest] = newVertex;
+         vertixList[dest]=newVertex; //just add dest
+    }else {//if both null
+        //set from
+        Vertix* newVertexFrom = new Vertix;
+        newVertexFrom->dest = dest; // Set destination
+        newVertexFrom->predecessor = nullptr; // Initialize predecessor pointer
+
+        Vertix* newVertexDest = new Vertix;
+
+        newVertexDest->dest =-1; // Set destination
+        newVertexDest->next = nullptr; // Initialize next pointer
+
+
+        newVertexDest->predecessor = newVertexFrom; // add predecessor pointer
+        newVertexFrom->next = newVertexDest; // add next pointer
+        adjList[dest] = newVertexDest;
+        adjList[from] = newVertexFrom;
+         vertixList.at(from)=newVertexFrom;
+         vertixList.at(dest)=newVertexDest;
+
     }
-    vertixList.push_back(newVertex);//adding into vertix List
-    std::cout << "Added edge from " << from << " to " << dest << std::endl;
+
+
+
+      std::cout << "Added edge from " << from << " to " << dest << std::endl;
 }
 
 
-void Graph::BFS(int source) {
+void Graph::BFS(Vertix* source) {
 
-
+            //vertixlist:  1, 2, 3, 4, 5
         for (Vertix* vertix: vertixList) {//set all vertix
             vertix->VertixColor=white;
            //vertix->distance=-1
             vertix->predecessor= nullptr;
         }
-    //V: 1,2,3,4,5
+    //V: 1,2,4,6,5,3
     //verixList[0,1,2,3,4,5]
     //source=1
     //vertixList[source]=2
 
-    vertixList->current=source;
-    vertixList->VertixColor=grey;
+    source->VertixColor=grey;
     //vertix->distance=-1
-    vertixList[source]->predecessor= nullptr;
-    Q.push(vertixList[source]);
+    source->predecessor= nullptr;
+    Q.push(source);
         while (!Q.empty()) {
             Vertix* u=Q.front();
             Q.pop();

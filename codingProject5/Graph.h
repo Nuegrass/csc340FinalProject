@@ -15,7 +15,6 @@ struct Vertix {
     Vertix* predecessor;//to point previous node
     Vertix* next;//to point next
     int dest;
-    int current;
 };
 
 class Graph {
@@ -28,10 +27,10 @@ private:
 public:
     Graph(int vertices);//add V
     Graph(const Graph& other); // Copy constructor
-    //Graph& operator=(const Graph& other); // Copy assignment operator
+    Graph& operator=(const Graph& other); // Copy assignment operator
     ~Graph();
     void addEdge(int from, int dest);
-    void BFS(int source);
+    void BFS(Vertix* source);
     void printShortestPath(int source);
     void printBFSTree(int source);
     // Getter function for V
@@ -42,7 +41,9 @@ public:
     const std::vector<Vertix*>& getAdjList() const {
         return adjList;
     }
-
+    const std::vector<Vertix*>& getVertixList() const {
+        return vertixList;
+    }
 
 
 
