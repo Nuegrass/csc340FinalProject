@@ -115,6 +115,9 @@
 		<Unit filename="/Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/main.cpp">
 			<Option target="CSC340FinalGroupProject"/>
 		</Unit>
+		<Unit filename="/Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/unitTest.h">
+			<Option target="CSC340FinalGroupProject"/>
+		</Unit>
 		<Unit filename="/Users/scottchen/CLionProjects/csc340FinalProject/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

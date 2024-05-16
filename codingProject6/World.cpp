@@ -11,7 +11,6 @@ World::World(){
     }
 }
 World::~World(){
-
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
             if(grid[i][j] != nullptr){
@@ -29,11 +28,9 @@ Organism* World::getAt(int x, int y){
 
     }
 }  //return a pointer to the critter at position [x][y]
-void World::setAt(int x, int y, Organism *org){
-    //if at (x,y) there is an organism, delete it
 
-        grid[x][y] = org;
-
+void World::setAt(int x, int y, Organism *org) {
+    grid[x][y] = org;
 }
 void World::Display(){
     std::cout <<"Entering Display() function"<< std::endl;
@@ -56,16 +53,10 @@ void World::SimulateOneStep(){
     //move all swoopies first
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
-
             if (grid[i][j] != nullptr && grid[i][j]->getType() == 2 && grid[i][j]->moved == false){
-                //print out the breedTicks of the Swoopie
-                std::cout << "Swoopie current breedTicks: " << grid[i][j]->breedTicks << std::endl;
-                grid[i][j]->breed();
-                grid[i][j]->move();
-
-                //print out the breedTicks of the Swoopie
-
-                std::cout << "Swoopie Current position of Swoopie: " << i << ", " << j << std::endl;
+                if(!grid[i][j]->starve()){ //move if the Swoopie does not starve
+                    grid[i][j]->move();
+                }
             }
 
         }
@@ -74,12 +65,8 @@ void World::SimulateOneStep(){
     //move all zoomies
     for (int i = 0; i < WORLDSIZE; ++i) {
         for (int j = 0; j < WORLDSIZE; ++j) {
-
             if (grid[i][j] != nullptr && grid[i][j]->getType() == 1 && grid[i][j]->moved == false){
-                std::cout << "Zoomie current breedTicks: " << grid[i][j]->breedTicks << std::endl;
-                grid[i][j]->breed();
                 grid[i][j]->move();
-
             }
         }
     }
@@ -96,8 +83,9 @@ void World::SimulateOneStep(){
 }
 //helper functions
 
-bool World::isValid(int x, int y){
-    if(x >= 0 && x <= WORLDSIZE && y >= 0 && y <= WORLDSIZE){
+bool World::isValid(int x, int y){ // check (newX, newY) is in 30x30 grid; but x in [0,29] and y in [0,29]
+
+    if(x >= 0 && x < WORLDSIZE && y >= 0 && y < WORLDSIZE){
         return true;
     }else{
         return false;

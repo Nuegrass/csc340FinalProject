@@ -4,19 +4,14 @@
 #include "Organism.h"
 
 Organism::Organism(){
-
+    //default constructor
 }
+
 Organism::Organism(World *world, int x, int y){
     this->x = x;
     this->y = y;
     this->breedTicks = 0;
     this->world = world;//points the organism to the world
-
-    //this->world->setAt(x,y,this); //setting the position of the organism to x , y
-    //^^^^^^TOTALLY UNNECCE`SARY BECAUSE WE USE SETAT IN MAIN
-    //but then that brings another quesiton, do we need to use any more of the memeber
-    //functions for world in this organism class?????
-    //I CHECKED SCOTTS AND DOESNT LOOK LIKE IT LUL
 }
 
 Organism::~Organism(){
@@ -25,16 +20,20 @@ Organism::~Organism(){
             delete[] world;
             world = nullptr;
         }
-
 }
-void Organism::breed() {
 
-}      // Whether or not to breed
+void Organism::breed() {
+    //to be overridden by derived classes
+}
+
 void Organism::move(){
-    breedTicks++;
-}        // Rules to move the critter
+    //to be overridden by derived classes
+}
 int Organism::getType() {
-}      // Return if Swoopie or Zoomie
+    //to be overridden by derived classes
+    return 0;  // 1 is Zoomie, 2 is Swoopie
+}
 bool Organism::starve(){
+    //to be overridden by derived classes
     return false;
-}   //
+}

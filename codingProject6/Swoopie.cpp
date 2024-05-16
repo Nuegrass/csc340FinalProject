@@ -8,12 +8,12 @@ Swoopie::Swoopie(World *world, int x, int y) {
     this->x = x;
     this->y = y;
     this->breedTicks = 0;
-    this->world = world;//points the organism to the world
-
-
-
-    this->world->setAt(x,y,this); //setting the position of the organism to x , y
+    this->moved = false;
     this->starveTicks = 0;
+
+    this->world = world;//points the organism to the world
+    this->world->setAt(x,y,this); //setting the position of the organism to x , y
+
 }
 //FIXME: Need correction here
 Swoopie::~Swoopie() {
@@ -74,31 +74,34 @@ void Swoopie::breed() {
 }
 //FIXME: check Memory leak here
 void Swoopie::move() {
-    std::cout << "CALLING SWOOPIE MOVE FUNC..... but it crashed the program wtf" << std::endl;
 
     moved = true; //set moved to true
     breedTicks++; //increment breedTicks
+    starveTicks++; //increment starveTicks
 
     //check if there is a Zoomie in the adjacent cells
     if (isZoomie(x, y + 1)) { // if there is a Zoomie below
+        starveTicks = 0; //reset starveTicks
         world->setAt(x, y + 1, this);
         world->setAt(x, y, nullptr);
         y++;
     } else if (isZoomie(x, y - 1)) { // if there is a Zoomie above
+        starveTicks = 0; //reset starveTicks
         world->setAt(x, y - 1, this);
         world->setAt(x, y, nullptr);
         y--;
     } else if (isZoomie(x + 1, y)) { // if there is a Zoomie to the right
+        starveTicks = 0; //reset starveTicks
         world->setAt(x + 1, y, this);
         world->setAt(x, y, nullptr);
         x++;
     } else if (isZoomie(x - 1, y)) { // if there is a Zoomie to the left
+        starveTicks = 0; //reset starveTicks
         world->setAt(x - 1, y, this);
         world->setAt(x, y, nullptr);
         x--;
     } else {
-        //FIXME: need to use Zoomie's move function, have not finished yet
-        //rand() generates a random number from 0 to 2147483647;
+
         int direction = rand() % 4; // 0 is right, 1 is left, 2 is up, 3 is down
         int newX = x;
         int newY = y;
@@ -125,7 +128,8 @@ void Swoopie::move() {
     }
 
 
-
+    breed();
+    starve();
 
 }
 
@@ -134,6 +138,7 @@ void Swoopie::move() {
 //FIXME: check for Memory leak here
 bool Swoopie::starve() {
     if (starveTicks == 3) {
+        starveTicks = 0;
         world->setAt(x, y, nullptr);
         return true;
     }
@@ -152,7 +157,6 @@ bool Swoopie::isZoomie(int x, int y) {
         }
     }
     return false;
-
 }
 std::string Swoopie::toString() {
     std::string tmp;

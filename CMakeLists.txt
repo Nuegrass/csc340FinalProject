@@ -16,4 +16,5 @@ add_executable(CSC340FinalGroupProject codingProject5/main.cpp
         codingProject6/main.cpp
         codingProject6/World.cpp
         codingProject6/World.h
+        codingProject6/unitTest.h
 )

@@ -11,13 +11,13 @@ Zoomie::Zoomie(){
 Zoomie::Zoomie(World* world, int x, int y){//parameterized constructor
     this->x = x;
     this->y = y;
+    this->moved = false;
     this->breedTicks = 0;
     this->world = world;
     this->world->setAt(x,y,this);
 }
 void Zoomie::breed() {
-    if(breedTicks == 3){ //if breedTicks is 3
-        breedTicks = 0; //reset breedTicks
+    if(breedTicks == 3){ //if moved 3 times
         //find an empty cell to breed from the current cell
         int newX = x;
         int newY = y;
@@ -39,13 +39,11 @@ void Zoomie::breed() {
         if (world->isValid(newX, newY) && world->getAt(newX, newY) == nullptr) { //if the new position is valid and empty
             new Zoomie(world, newX, newY); //create a new Zoomie
         }
-        //if the new position is not valid or not empty, then no breeding occurs
+        breedTicks = 0; //reset breedTicks
     }
-};       // Whether or not to breed
+};
+
 void Zoomie::move(){
-    std::cout << "CALLING ZOOMIE MOVE" << std::endl;
-    //print out the current position of the Zoomie
-    std::cout << "Current position of Zoomie: " << x << ", " << y << std::endl;
     moved = true; //set moved to true
     breedTicks++; //increment breedTicks
 
@@ -73,6 +71,9 @@ void Zoomie::move(){
         x = newX; //update the x position
         y = newY; //update the y position
     }
+    //if the new position is not valid or not empty, then no movement occurs
+
+    breed(); //breed after moving
 
 };        // Rules to move the critter
 int Zoomie::getType(){

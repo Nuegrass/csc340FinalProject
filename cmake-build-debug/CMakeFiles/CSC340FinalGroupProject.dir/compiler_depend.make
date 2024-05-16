@@ -5419,7 +5419,8 @@ CMakeFiles/CSC340FinalGroupProject.dir/codingProject6/main.cpp.o: /Users/scottch
   /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/Organism.h \
   /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/Swoopie.h \
   /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/World.h \
-  /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/Zoomie.h
+  /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/Zoomie.h \
+  /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/unitTest.h
 
 
 /Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/Zoomie.cpp:
@@ -5741,6 +5742,8 @@ CMakeFiles/CSC340FinalGroupProject.dir/codingProject6/main.cpp.o: /Users/scottch
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/for_each_segment.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/execution:
+
+/Users/scottchen/CLionProjects/csc340FinalProject/codingProject6/unitTest.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cwctype:
 

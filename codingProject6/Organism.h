@@ -18,10 +18,16 @@ public:
     virtual void move() = 0;        // Rules to move the critter
     virtual int getType() =0;       // Return if Swoopie or Zoomie
     virtual bool starve() = 0;      // Determine if organism starves
+
+    //accessors
+    int getX() const { return x; }
+    int getY() const { return y; }
+
 protected:
     int x,y;                        // Position in the world
     bool moved;                     // Bool to indicate if moved this turn
     int breedTicks;                 // Number of ticks since breeding
     World *world;
 };
+
 #endif //CSC340FINALGROUPPROJECT_ORGANISM_H
