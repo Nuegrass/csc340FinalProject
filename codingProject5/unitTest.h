@@ -138,35 +138,38 @@ namespace UNITTEST{
 //    }
 
 //
-     bool testCopyConstructor() {
-         // Create graph1 with edges
-         Graph graph1(5,2);
-         graph1.addEdge(0, 1);
-         graph1.addEdge(0, 2);
+    bool testCopyConstructor() {
+        // Create graph1 with edges
+        Graph graph1(5, 2);
+        graph1.addEdge(0, 1);
+        graph1.addEdge(0, 2);
 
-         // Create graph2 using copy constructor
-         Graph graph2(graph1); // Copy constructor
+        // Create graph2 using copy constructor
+        Graph graph2(graph1); // Copy constructor
 
-         // Check if graph2 is a copy of graph1
-         if (graph2.getV() != graph1.getV())
-             return false;
+        // Check if graph2 is a copy of graph1
+        if (graph2.getV() != graph1.getV()) // Check vertex count
+            return false;
 
-         const std::vector<Vertix*>& adjList1 = graph1.getAdjList();
-         const std::vector<Vertix*>& adjList2 = graph2.getAdjList();
-         for (int i = 0; i < graph1.getV(); ++i) {
-             Vertix* current1 = adjList1[i];
-             Vertix* current2 = adjList2[i];
-             while (current1 != nullptr) {
-                 if (current2 == nullptr || current1->dest != current2->dest)
-                     return false;
-                 current1 = current1->next;
-                 current2 = current2->next;
-             }
-         }
+        const std::vector<Vertix*>& adjListGraph1 = graph1.getAdjList();
+        const std::vector<Vertix*>& adjListGraph2 = graph2.getAdjList();
 
-         // All checks passed
-         return true;
-     }
+        // Compare adjacency lists
+        for (int i = 0; i < graph1.getV(); ++i) {
+            Vertix* current1 = adjListGraph1[i];
+            Vertix* current2 = adjListGraph2[i];
+            while (current1 != nullptr) {
+                if (current2 == nullptr || current1->dest != current2->dest)
+                    return false;
+                current1 = current1->next;
+                current2 = current2->next;
+            }
+        }
+
+        // All checks passed
+        return true;
+    }
+
 
 
 
@@ -188,16 +191,20 @@ namespace UNITTEST{
 
 
 
-     bool testDestructor() {
-         // Create an empty graph
-         Graph graph(0,0);
+    bool testDestructor() {
+        // Create a graph object
+        Graph graph(2, 2);
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
 
-         // Delete the graph object
-         // After deletion, the adjacency list should be empty
-         delete &graph; // Delete the graph object
+        // Get the size of the adjacency list before deletion
+        size_t adjListSizeBeforeDeletion = graph.getAdjList().size();
+        std::cout<<"size"<<adjListSizeBeforeDeletion;
 
-         return graph.getAdjList().empty();
-     }
+        // Return whether the size of the adjacency list is zero after deletion
+        return graph.getAdjList().size()== 0;
+    }
+
 
 }
 
