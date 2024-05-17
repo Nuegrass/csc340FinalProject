@@ -182,13 +182,37 @@ namespace UNITTEST{
 
      bool testDestructor() {
          // Create an empty graph
-         Graph graph(0,0);
+         Graph *aGraph = new Graph(3,0);
 
+         //add three edges
+        aGraph->addEdge(0, 1);
+        aGraph->addEdge(0, 2);
+        aGraph->addEdge(1, 2);
+
+        //The adjList should look like this:
+        // 0 -> 1 -> 2
+        // 1 -> 2
+        // 2
+
+         std::cout << "The size of the adjList is: "<<aGraph->getAdjList().size()<<"\n";
+         //print out the adjList
+            for (int i = 0; i < aGraph->getAdjList().size(); ++i) {
+                std::cout << "The adjList at "<<i<<" is: ";
+                for (Vertix* neighbor = aGraph->getAdjList().at(i); neighbor != nullptr; neighbor = neighbor->next) {
+                    std::cout << neighbor->dest << " ";
+                }
+                std::cout << std::endl;
+            }
          // Delete the graph object
          // After deletion, the adjacency list should be empty
-         delete &graph; // Delete the graph object
+         delete aGraph; // Delete the graph object
 
-         return graph.getAdjList().empty();
+         //check if everything is deleted
+            if(aGraph->getAdjList().size() == 0) {
+                return true;
+            }
+
+         return false;
      }
 
 }

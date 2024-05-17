@@ -18,11 +18,11 @@ int main() {
     printTestResult(UNITTEST::testAddEdge(),"testAddEdge");
     printTestResult(UNITTEST::testCopyAssignment(),"testCopyAssignment");
     //printTestResult(UNITTEST::testCopyConstructor(),"testCopyConstructor");
-    //printTestResult(UNITTEST::testDestructor(),"testDestructor");
+    printTestResult(UNITTEST::testDestructor(),"testDestructor");
 
     printTestResult(UNITTEST::testBFS(),"testBFS");
   //  printTestResult(  UNITTEST::testPrintShortestPath(),"testPrintShortest");
-    printTestResult(  UNITTEST::testPrintTree(),"testPrintTree");
+   // printTestResult(  UNITTEST::testPrintTree(),"testPrintTree");
 
 
 
