@@ -1,6 +1,6 @@
 //
 // Created by amytx on 5/9/2024.
-//
+// assist by GitHub Copilot
 
 #include "World.h"
 World::World(){
@@ -44,7 +44,7 @@ void World::Display(){
             }else if(grid[i][j]->getType() == 1){//1 is zoomie and 2 is swoopie
                 std::cout << "o";
             }else if(grid[i][j]->getType() == 2){
-                std::cout << "x";
+                std::cout << "X";
             }
         }
         std::cout << std::endl; //new line

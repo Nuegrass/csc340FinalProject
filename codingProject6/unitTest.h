@@ -1,6 +1,6 @@
 //
 // Created by Scott Chen on 5/15/24.
-//
+// assist by GitHub Copilot
 
 #ifndef CSC340FINALGROUPPROJECT_UNITTEST_H
 #define CSC340FINALGROUPPROJECT_UNITTEST_H

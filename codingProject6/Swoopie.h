@@ -1,6 +1,6 @@
 //
 // Created by amytx on 5/9/2024.
-//
+// assist by GitHub Copilot
 
 #ifndef CSC340FINALGROUPPROJECT_SWOOPIE_H
 #define CSC340FINALGROUPPROJECT_SWOOPIE_H

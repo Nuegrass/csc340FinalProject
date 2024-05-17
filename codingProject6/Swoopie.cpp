@@ -1,6 +1,6 @@
 //
 // Created by amytx on 5/9/2024.
-//
+// assist by GitHub Copilot
 #include "Swoopie.h"
 
 Swoopie::Swoopie(World *world, int x, int y) {

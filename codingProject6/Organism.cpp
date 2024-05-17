@@ -1,6 +1,6 @@
 //
 // Created by amytx on 5/9/2024.
-//
+// assist by GitHub Copilot
 #include "Organism.h"
 
 Organism::Organism(){

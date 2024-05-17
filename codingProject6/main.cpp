@@ -1,6 +1,6 @@
 //
 // Created by amytx on 5/9/2024.
-//
+// assist by GitHub Copilot
 #include "World.h"
 #include "Organism.h"
 #include "Zoomie.h"
@@ -17,7 +17,7 @@ int main(){
     std::uniform_int_distribution<> distribution(0,29);// to generate a random number from 0-29
 
     //Adding 5 Swoopies to the World
-    int numOfSwoopies = 5;
+    int numOfSwoopies = 15;
     for (int i = 0; i < numOfSwoopies; ++i) {
         int xPos =distribution(generator); //generate a random x position
         int yPos =distribution(generator); //generate a random y position
